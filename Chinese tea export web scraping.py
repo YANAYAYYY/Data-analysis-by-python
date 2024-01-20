@@ -5,30 +5,30 @@ import re
 import pandas as pd
 import numpy as np
 
-# #»ñÈ¡ÍøÒ³
-# headers = {"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0"}
+# #è·å–ç½‘é¡µ
+# headers = {"User-Agent":"xxxxxxxxxxxxxxxxxxx"}
 # response = requests.get("https://www.ctma.com.cn/chukoujianbao.html?orderway=desc&orderby=publishtime", headers = headers)
-# # print(response)   #¿´ÇëÇóÊÇ·ñÏìÓ¦³É¹¦
-# # print(response.status_code)   #¿´×´Ì¬Âë£¬²é¿´¾ßÌåÊ§°ÜµÄÎÊÌâ£¬200¾ÍÊÇ³É¹¦
+# # print(response)   #çœ‹è¯·æ±‚æ˜¯å¦å“åº”æˆåŠŸ
+# # print(response.status_code)   #çœ‹çŠ¶æ€ç ï¼ŒæŸ¥çœ‹å…·ä½“å¤±è´¥çš„é—®é¢˜ï¼Œ200å°±æ˜¯æˆåŠŸ
 # # print(response.text)
 # html = response.text
 #
-# #ÌáÈ¡ÍøÒ³ÖĞµÄËùĞèÒªµÄÃ¿¸öÔÂ²èÒ¶³ö¿ÚµÄÁ´½ÓµÄÈİÆ÷
+# #æå–ç½‘é¡µä¸­çš„æ‰€éœ€è¦çš„æ¯ä¸ªæœˆèŒ¶å¶å‡ºå£çš„é“¾æ¥çš„å®¹å™¨
 # soup = BeautifulSoup(html,"html.parser")
 # all_listcontents = soup.find_all("ul",attrs={"class":"info-list info-list-1"})
 # # for link in all_listcontents:
 # #     print(link)
 #
-# #ÔÙÔÚÕâĞ©ÈİÆ÷ÖĞ·Ö±ğÌáÈ¡Ã¿¸öÔÂ²èÒ¶³ö¿ÚµÄÁ´½Ó
+# #å†åœ¨è¿™äº›å®¹å™¨ä¸­åˆ†åˆ«æå–æ¯ä¸ªæœˆèŒ¶å¶å‡ºå£çš„é“¾æ¥
 # links = []
 # for listcontent in all_listcontents:
-#     tags = listcontent.find_all("a")   #»ñÈ¡±êÇ©µÄhrefÊôĞÔ
+#     tags = listcontent.find_all("a")   #è·å–æ ‡ç­¾çš„hrefå±æ€§
 #     for tag in tags:
 #         href = tag.get("href")
 #         links.append(href)
 # # print(links)
 #
-# #½øÈëÃ¿¸öÔÂµÄÁ´½ÓÄÚ£¬ÌáÈ¡ÎÄ±¾ÄÚÈİ
+# #è¿›å…¥æ¯ä¸ªæœˆçš„é“¾æ¥å†…ï¼Œæå–æ–‡æœ¬å†…å®¹
 # f1 = open("texts for tea export information.csv","a",encoding='utf-8')
 # for link in links:
 #     response02 = requests.get(f"https://www.ctma.com.cn/{link}", headers=headers)
@@ -40,18 +40,18 @@ import numpy as np
 #         f1.write(text_contents + "\n")
 # f1.close()
 
-# ÀûÓÃÕıÔò±í´ïÊ½ÌáÈ¡Ã¿¸öÔÂµÄÖØÒªÊı¾İ£¬µ«ÊÇÒª×¢ÒâÃ¿Ò»¸öÔÂµÄÊı¾İ¶¼ÊÇÀÛ¼ÆÇ°¼¸¸öÔÂµÄÊı¾İ
-pattern1 = r"2023Äê1-(\d+)ÔÂ"
-pattern2 = r'ÂÌ²è³ö¿ÚÁ¿Îª(\d+(\.\d+)?(Íò)?)¶Ö'
-pattern3 = r"ºì²è³ö¿ÚÁ¿Îª(\d+(\.\d+)?(Íò)?)¶Ö"
-pattern4 = r"ÎÚÁú²è³ö¿ÚÁ¿Îª(\d+(\.\d+)?(Íò)?)¶Ö"
-pattern5 = r"ÜÔÀò»¨²è³ö¿ÚÁ¿Îª(\d+(\.\d+)?(Íò)?)¶Ö"
-pattern6 = r"ÆÕ¶ı²è³ö¿ÚÁ¿Îª(\d+(\.\d+)?(Íò)?)¶Ö"
-pattern7 = r"ÆäËû»¨²è³ö¿ÚÁ¿Îª(\d+(\.\d+)?(Íò)?)¶Ö"
-pattern8 = r"ºÚ²è³ö¿ÚÁ¿Îª(\d+(\.\d+)?(Íò)?)¶Ö"
-pattern9 = r"°×²è³ö¿ÚÁ¿Îª(\d+(\.\d+)?(Íò)?)¶Ö"
-pattern10 = r"ÖĞ¹ú²èÒ¶ÀÛ¼Æ³ö¿ÚÁ¿Îª(\d+(\.\d+)?(Íò)?)¶Ö"
-pattern11 = r"ÀÛ¼Æ³ö¿Ú¶îÎª(\d+(\.\d+)?)ÒÚÃÀÔª"     #(?!ÀÛ¼Æ)±íÊ¾³ö¿Ú¶î²»ÄÜ½ô¸úÀÛ¼Æ
+# åˆ©ç”¨æ­£åˆ™è¡¨è¾¾å¼æå–æ¯ä¸ªæœˆçš„é‡è¦æ•°æ®ï¼Œä½†æ˜¯è¦æ³¨æ„æ¯ä¸€ä¸ªæœˆçš„æ•°æ®éƒ½æ˜¯ç´¯è®¡å‰å‡ ä¸ªæœˆçš„æ•°æ®
+pattern1 = r"2023å¹´1-(\d+)æœˆ"
+pattern2 = r'ç»¿èŒ¶å‡ºå£é‡ä¸º(\d+(\.\d+)?(ä¸‡)?)å¨'
+pattern3 = r"çº¢èŒ¶å‡ºå£é‡ä¸º(\d+(\.\d+)?(ä¸‡)?)å¨"
+pattern4 = r"ä¹Œé¾™èŒ¶å‡ºå£é‡ä¸º(\d+(\.\d+)?(ä¸‡)?)å¨"
+pattern5 = r"èŒ‰è‰èŠ±èŒ¶å‡ºå£é‡ä¸º(\d+(\.\d+)?(ä¸‡)?)å¨"
+pattern6 = r"æ™®æ´±èŒ¶å‡ºå£é‡ä¸º(\d+(\.\d+)?(ä¸‡)?)å¨"
+pattern7 = r"å…¶ä»–èŠ±èŒ¶å‡ºå£é‡ä¸º(\d+(\.\d+)?(ä¸‡)?)å¨"
+pattern8 = r"é»‘èŒ¶å‡ºå£é‡ä¸º(\d+(\.\d+)?(ä¸‡)?)å¨"
+pattern9 = r"ç™½èŒ¶å‡ºå£é‡ä¸º(\d+(\.\d+)?(ä¸‡)?)å¨"
+pattern10 = r"ä¸­å›½èŒ¶å¶ç´¯è®¡å‡ºå£é‡ä¸º(\d+(\.\d+)?(ä¸‡)?)å¨"
+pattern11 = r"ç´¯è®¡å‡ºå£é¢ä¸º(\d+(\.\d+)?)äº¿ç¾å…ƒ"     #(?!ç´¯è®¡)è¡¨ç¤ºå‡ºå£é¢ä¸èƒ½ç´§è·Ÿç´¯è®¡
 list_Month = []
 list_GreenTeaExportVolume = []
 list_RedTeaExportVolume = []
@@ -79,10 +79,10 @@ for i in f1:
 # for lst in Search_list:
 #     print(lst)
 
-#½«ÆäÖĞ´ø¡°Íò"µ¥Î»µÄÊı×Öx10000²¢È¥µôµ¥Î»ÖØĞÂÉú³ÉĞÂµÄÁĞ±í£¬²»´ø¡°Íò¡±µ¥Î»µÄÊı×Ö×ª»»³É¸¡µãÊı¸ñÊ½£¬±ãÓÚºóĞø¼ÆËã
+#å°†å…¶ä¸­å¸¦â€œä¸‡"å•ä½çš„æ•°å­—x10000å¹¶å»æ‰å•ä½é‡æ–°ç”Ÿæˆæ–°çš„åˆ—è¡¨ï¼Œä¸å¸¦â€œä¸‡â€å•ä½çš„æ•°å­—è½¬æ¢æˆæµ®ç‚¹æ•°æ ¼å¼ï¼Œä¾¿äºåç»­è®¡ç®—
 for lst in Search_list:
     for index, num in enumerate(lst):
-        if "Íò" in num:
+        if "ä¸‡" in num:
             number = float(num[:-1]) * 10000
             lst[index] = number
         else:
@@ -90,7 +90,7 @@ for lst in Search_list:
             lst[index] = number
     # print(lst)
 
-# ÇóÃ¿¸öÔÂµÄ³ö¿ÚÊı¾İ = ÓÃÕâ¸öÔÂµÄÀÛ¼ÆÊı¾İ - ÉÏ¸öÔÂµÄÀÛ¼ÆÊı¾İ
+# æ±‚æ¯ä¸ªæœˆçš„å‡ºå£æ•°æ® = ç”¨è¿™ä¸ªæœˆçš„ç´¯è®¡æ•°æ® - ä¸Šä¸ªæœˆçš„ç´¯è®¡æ•°æ®
 list_MonthMonthly = []
 list_GreenTeaExportVolumeMonthly = []
 list_RedTeaExportVolumeMonthly = []
@@ -107,34 +107,34 @@ Search_list_Monthly = [list_MonthMonthly,list_GreenTeaExportVolumeMonthly,list_R
                list_JasmineTeaExportVolumeMonthly, list_PuerTeaExportVolumeMonthly,list_FlowerTeaExportVolumeMonthly,list_BlackTeaExportVolumeMonthly,
                list_WhiteTeaExportVolumeMonthly, list_ChineseTeaExportVolumeMonthly, list_ExportValueMonthly]
 
-#µ¥ÔÂÂÌ²è³ö¿ÚÁ¿
+#å•æœˆç»¿èŒ¶å‡ºå£é‡
 # list_GreenTeaExportVolumeMonthly = [float(list_GreenTeaExportVolume[i]) - float(list_GreenTeaExportVolume[i + 1]) for i in range(len(list_GreenTeaExportVolume) - 1)]
 # # print(list_GreenTeaExportVolume)
 # # print(list_GreenTeaExportVolumeMonthly)
 
-#ÇóËùÓĞµÄµ¥ÔÂÊı¾İ
+#æ±‚æ‰€æœ‰çš„å•æœˆæ•°æ®
 for n in range(len(Search_list)):
     monthly_diffs = [float(Search_list[n][i]) - float(Search_list[n][i + 1]) for i in range(len(Search_list[n]) - 1)]
     Search_list_Monthly[n].append(monthly_diffs)
 
-print("ÔÂ·İ",list_Month,"µ¥Î»£ºÔÂ")
-print("ÂÌ²èÃ¿ÔÂÀÛ¼Æ³ö¿ÚÁ¿",list_GreenTeaExportVolume,"µ¥Î»£º¶Ö")
-print("ÂÌ²èÃ¿ÔÂµ¥ÔÂ³ö¿ÚÁ¿",list_GreenTeaExportVolumeMonthly,"µ¥Î»£º¶Ö")
-print("ºì²èÃ¿ÔÂÀÛ¼Æ³ö¿ÚÁ¿",list_RedTeaExportVolume,"µ¥Î»£º¶Ö")
-print("ºì²èÃ¿ÔÂµ¥ÔÂ³ö¿ÚÁ¿",list_RedTeaExportVolumeMonthly,"µ¥Î»£º¶Ö")
-print("ÎÚÁú²èÃ¿ÔÂÀÛ¼Æ³ö¿ÚÁ¿",list_OolongTeaExportVolume,"µ¥Î»£º¶Ö")
-print("ÎÚÁú²èÃ¿ÔÂµ¥ÔÂ³ö¿ÚÁ¿",list_OolongTeaExportVolumeMonthly,"µ¥Î»£º¶Ö")
-print("ÜÔÀò»¨²èÃ¿ÔÂÀÛ¼Æ³ö¿ÚÁ¿",list_JasmineTeaExportVolume,"µ¥Î»£º¶Ö")
-print("ÜÔÀò»¨²èÃ¿ÔÂµ¥ÔÂ³ö¿ÚÁ¿",list_JasmineTeaExportVolumeMonthly,"µ¥Î»£º¶Ö")
-print("ÆÕ¶ı²èÃ¿ÔÂÀÛ¼Æ³ö¿ÚÁ¿",list_PuerTeaExportVolume,"µ¥Î»£º¶Ö")
-print("ÆÕ¶ı²èÃ¿ÔÂµ¥ÔÂ³ö¿ÚÁ¿",list_PuerTeaExportVolumeMonthly,"µ¥Î»£º¶Ö")
-print("ÆäËû»¨²èÃ¿ÔÂÀÛ¼Æ³ö¿ÚÁ¿",list_FlowerTeaExportVolume,"µ¥Î»£º¶Ö")
-print("ÆäËû»¨²èÃ¿ÔÂµ¥ÔÂ³ö¿ÚÁ¿",list_FlowerTeaExportVolumeMonthly,"µ¥Î»£º¶Ö")
-print("ºÚ²èÃ¿ÔÂÀÛ¼Æ³ö¿ÚÁ¿",list_BlackTeaExportVolume,"µ¥Î»£º¶Ö")
-print("ºÚ²èÃ¿ÔÂµ¥ÔÂ³ö¿ÚÁ¿",list_BlackTeaExportVolumeMonthly,"µ¥Î»£º¶Ö")
-print("°×²èÃ¿ÔÂÀÛ¼Æ³ö¿ÚÁ¿",list_WhiteTeaExportVolume,"µ¥Î»£º¶Ö")
-print("°×²èÃ¿ÔÂµ¥ÔÂ³ö¿ÚÁ¿",list_WhiteTeaExportVolumeMonthly,"µ¥Î»£º¶Ö")
-print("ÖĞ¹ú²èÒ¶ÀÛ¼Æ³ö¿ÚÁ¿",list_ChineseTeaExportVolume,"µ¥Î»£º¶Ö")
-print("ÖĞ¹ú²èÒ¶³ö¿ÚÃ¿ÔÂ³ö¿ÚÁ¿",list_ChineseTeaExportVolumeMonthly,"µ¥Î»£º¶Ö")
-print("ÖĞ¹ú²èÒ¶ÀÛ¼Æ³ö¿Ú¶î",list_ExportValue,"ÒÚÃÀÔª")
-print("ÖĞ¹ú²èÒ¶Ã¿ÔÂ³ö¿Ú¶î",list_ExportValueMonthly,"ÒÚÃÀÔª")
+print("æœˆä»½",list_Month,"å•ä½ï¼šæœˆ")
+print("ç»¿èŒ¶æ¯æœˆç´¯è®¡å‡ºå£é‡",list_GreenTeaExportVolume,"å•ä½ï¼šå¨")
+print("ç»¿èŒ¶æ¯æœˆå•æœˆå‡ºå£é‡",list_GreenTeaExportVolumeMonthly,"å•ä½ï¼šå¨")
+print("çº¢èŒ¶æ¯æœˆç´¯è®¡å‡ºå£é‡",list_RedTeaExportVolume,"å•ä½ï¼šå¨")
+print("çº¢èŒ¶æ¯æœˆå•æœˆå‡ºå£é‡",list_RedTeaExportVolumeMonthly,"å•ä½ï¼šå¨")
+print("ä¹Œé¾™èŒ¶æ¯æœˆç´¯è®¡å‡ºå£é‡",list_OolongTeaExportVolume,"å•ä½ï¼šå¨")
+print("ä¹Œé¾™èŒ¶æ¯æœˆå•æœˆå‡ºå£é‡",list_OolongTeaExportVolumeMonthly,"å•ä½ï¼šå¨")
+print("èŒ‰è‰èŠ±èŒ¶æ¯æœˆç´¯è®¡å‡ºå£é‡",list_JasmineTeaExportVolume,"å•ä½ï¼šå¨")
+print("èŒ‰è‰èŠ±èŒ¶æ¯æœˆå•æœˆå‡ºå£é‡",list_JasmineTeaExportVolumeMonthly,"å•ä½ï¼šå¨")
+print("æ™®æ´±èŒ¶æ¯æœˆç´¯è®¡å‡ºå£é‡",list_PuerTeaExportVolume,"å•ä½ï¼šå¨")
+print("æ™®æ´±èŒ¶æ¯æœˆå•æœˆå‡ºå£é‡",list_PuerTeaExportVolumeMonthly,"å•ä½ï¼šå¨")
+print("å…¶ä»–èŠ±èŒ¶æ¯æœˆç´¯è®¡å‡ºå£é‡",list_FlowerTeaExportVolume,"å•ä½ï¼šå¨")
+print("å…¶ä»–èŠ±èŒ¶æ¯æœˆå•æœˆå‡ºå£é‡",list_FlowerTeaExportVolumeMonthly,"å•ä½ï¼šå¨")
+print("é»‘èŒ¶æ¯æœˆç´¯è®¡å‡ºå£é‡",list_BlackTeaExportVolume,"å•ä½ï¼šå¨")
+print("é»‘èŒ¶æ¯æœˆå•æœˆå‡ºå£é‡",list_BlackTeaExportVolumeMonthly,"å•ä½ï¼šå¨")
+print("ç™½èŒ¶æ¯æœˆç´¯è®¡å‡ºå£é‡",list_WhiteTeaExportVolume,"å•ä½ï¼šå¨")
+print("ç™½èŒ¶æ¯æœˆå•æœˆå‡ºå£é‡",list_WhiteTeaExportVolumeMonthly,"å•ä½ï¼šå¨")
+print("ä¸­å›½èŒ¶å¶ç´¯è®¡å‡ºå£é‡",list_ChineseTeaExportVolume,"å•ä½ï¼šå¨")
+print("ä¸­å›½èŒ¶å¶å‡ºå£æ¯æœˆå‡ºå£é‡",list_ChineseTeaExportVolumeMonthly,"å•ä½ï¼šå¨")
+print("ä¸­å›½èŒ¶å¶ç´¯è®¡å‡ºå£é¢",list_ExportValue,"äº¿ç¾å…ƒ")
+print("ä¸­å›½èŒ¶å¶æ¯æœˆå‡ºå£é¢",list_ExportValueMonthly,"äº¿ç¾å…ƒ")
